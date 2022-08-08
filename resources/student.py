@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from models.student import News
+from models.student import Student
 import json
 import datetime
 import math
@@ -17,7 +17,7 @@ class GetStudent(Resource):
 
     def get(self):
         parser = reqparse.RequestParser()
-        response = News.get_student(self)
+        response = Student.get_student(self)
         return {
             
             "data": response
@@ -33,7 +33,7 @@ class UpdateStudent(Resource):
         parser.add_argument('amount_due', type=int)
         data = parser.parse_args()
 
-        response = News.update_db(self, data['student_id'], data['first_name'], data['last_name'], data['date_of_birth'],
+        response = Student.update_db(self, data['student_id'], data['first_name'], data['last_name'], data['date_of_birth'],
         data['amount_due'])
 
 
@@ -47,7 +47,7 @@ class DeleteStudent(Resource):
         parser.add_argument('student_id', type=int)
         data = parser.parse_args()
 
-        response = News.delete_student(self, data['student_id'])
+        response = Student.delete_student(self, data['student_id'])
 
 
         return {
@@ -71,7 +71,7 @@ class AddStudent(Resource):
             'amount_due']:
 
             try:
-                News(
+                Student(
                     data['first_name'], data['last_name'], data['date_of_birth'],
                     data['amount_due']
                 ).save_to_db()

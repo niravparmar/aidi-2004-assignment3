@@ -1,6 +1,6 @@
 from db import db
 
-class News(db.Model):
+class Student(db.Model):
 
     __tablename__ = 'student'
 
@@ -21,7 +21,7 @@ class News(db.Model):
         db.session.commit()
 
     def update_db(self,student_id , first_name, last_name,date_of_birth, amount_due):
-        student = News.query.filter_by(studentid= student_id).first()
+        student = Student.query.filter_by(studentid= student_id).first()
         student.first_name = first_name
         student.last_name = last_name
         student.date_of_birth = date_of_birth
@@ -30,13 +30,13 @@ class News(db.Model):
         return first_name
     
     def delete_student(self,student_id):
-        News.query.filter_by(studentid = student_id).delete()
+        Student.query.filter_by(studentid = student_id).delete()
         db.session.commit()
         return "Deleted"
 
     def get_student(self):
-        news_list = []
-        for news in db.session.query(News).all():
-            news_list.append({'studentid': news.studentid, 'first_name': news.first_name, 'last_name': news.last_name, 
+        Student_list = []
+        for news in db.session.query(Student).all():
+            Student_list.append({'studentid': news.studentid, 'first_name': news.first_name, 'last_name': news.last_name, 
             'date_of_birth': news.date_of_birth, 'amount_due': news.amount_due})
-        return news_list
+        return Student_list
